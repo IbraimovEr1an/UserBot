@@ -1,0 +1,16 @@
+{
+  "telegram-h1": "Open via Telegram",
+  "telegram-p": "This page only works within the Telegram app",
+  "telegram-btn": "Go to Telegram",
+  "server-h1": "Connection to server lost",
+  "server-p": "A technical error occurred while connecting to the server. Please try again shortly",
+  "server-btn": "Try again",
+  "data-h1": "Verification failed",
+  "data-p": "We were unable to verify your data. Please try again shortly",
+  "auth-h1": "Session expired",
+  "auth-p": "Your session has expired. Please restart the bot to continue",
+  "user-h1": "User not found",
+  "user-p": "No matching record was found in the system. Please try logging in again through the bot",
+  "limit-h1": "Too many requests",
+  "limit-p": "You've sent too many requests in a short period. Please try again later."
+}

@@ -1,0 +1,16 @@
+{
+  "h1": "Telefon raqamingiz",
+  "p": "Iltimos, mamlakat kodingizni tasdiqlang va telefon raqamingizni kiriting",
+  "nx": "Keyingisi",
+  "wait": "Iltimos, bir oz kuting...",
+  "qrcode": "QR kod yordamida tez kiring",
+  "country": "Mamlakatni tanlang",
+  "search": "Qidiruv",
+  "close": "Yopish",
+  "country_empty": "Mamlakat topilmadi",
+  "PHONE_NUMBER_INVALID": "Raqam formati noto‘g‘ri yoki mavjud emas.",
+  "PHONE_NUMBER_BANNED": "Bu raqam Telegram tomonidan bloklangan",
+  "PHONE_NUMBER_FLOOD": "Bu raqam uchun juda ko'p urinish qilingan",
+  "PHONE_PASSWORD_FLOOD": "Parolni juda ko'p marta noto'g'ri kiritilgan",
+  "FLOOD": "Berilgan input parametrlari bilan metodni juda ko'p marta chaqirilgani uchun biroz vaqt kutish talab qilinadi"
+}

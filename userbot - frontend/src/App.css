@@ -1,0 +1,23 @@
+html,
+body {
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Roboto", sans-serif;
+  height: var(--tg-viewport-height);
+  background: var(--bg-color);
+  overscroll-behavior: none;
+  touch-action: pan-x pan-y;
+  color: var(--txt-color);
+  box-sizing: border-box;
+  user-select: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#root {
+  height: var(--tg-viewport-height);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 10px 12px 0;
+}

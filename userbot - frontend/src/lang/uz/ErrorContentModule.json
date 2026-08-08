@@ -1,0 +1,9 @@
+{
+  "too-many-requests": "Siz qisqa vaqt ichida juda ko'p so'rov yubordingiz. Iltimos, keyinroq qayta urinib ko'ring.",
+  "server-error": "Serverga ulanishda texnik nosozlik yuz berdi. Iltimos, birozdan so'ng qayta urinib ko'ring",
+  "unknown-error": "Kutilmagan xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko‘ring.",
+  "API_ID_INVALID": "API identifikatori noto'g'ri.",
+  "API_ID_PUBLISHED_FLOOD": "Ushbu API identifikatori bir joyda nashr etilgan, endi undan foydalana olmaysiz.",
+  "no-auth": "Seans mavjud emas. Iltimos, qayta urinib ko‘ring yoki ilovani qayta ishga tushiring.",
+  "DB-ERROR": "Tizimda texnik nosozlik yuz berdi. Iltimos, birozdan so'ng qaytadan urinib ko'ring."
+}

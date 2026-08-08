@@ -1,0 +1,16 @@
+{
+  "telegram-h1": "Telegram orqali oching",
+  "telegram-p": "Bu sahifa faqat Telegram ilovasida ishlaydi",
+  "telegram-btn": "Telegramga o'tish",
+  "server-h1": "Server bilan aloqa uzildi",
+  "server-p": "Serverga ulanishda texnik nosozlik yuz berdi. Iltimos, birozdan so'ng qayta urinib ko'ring",
+  "server-btn": "Qayta urinish",
+  "data-h1": "Tekshiruv muvaffaqiyatsiz yakunlandi",
+  "data-p": "Maʼlumotlaringizni tasdiqlashning imkoni boʻlmadi. Iltimos, birozdan soʻng qaytadan urinib koʻring",
+  "auth-h1": "Seans muddati tugadi",
+  "auth-p": "Seansingiz muddati tugadi. Davom etish uchun botni qaytadan ishga tushiring",
+  "user-h1": "Foydalanuvchi topilmadi",
+  "user-p": "Tizimda mos maʼlumot topilmadi. Bot orqali qaytadan tizimga kirishga harakat qiling",
+  "limit-h1": "Juda ko'p urinish",
+  "limit-p": "Siz qisqa vaqt ichida juda ko'p so'rov yubordingiz. Iltimos, keyinroq qayta urinib ko'ring."
+}

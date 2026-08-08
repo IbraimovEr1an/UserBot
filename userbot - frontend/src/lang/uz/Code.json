@@ -1,0 +1,14 @@
+{
+  "h1": "Telegram xabaringizni tekshiring",
+  "p": "Qurilmangizdagi phone uchun Telegram ilovasiga kod yuborildi.",
+  "PHONE_CODE_INVALID": "Kiritilgan tasdiqlash kodi noto'g'ri. Iltimos, kodni qayta tekshirib kiriting.",
+  "PHONE_CODE_EXPIRED": "Tasdiqlash kodining amal qilish muddati tugagan. Yangi kod so'rang.",
+  "PHONE_CODE_EMPTY": "Tasdiqlash kodi kiritilmadi. Iltimos, kodni to'liq kiriting.",
+  "PASSWORD_HASH_INVALID": "Kiritilgan parol noto'g'ri. Iltimos, qayta urinib ko'ring",
+  "PHONE_NUMBER_INVALID": "Telefon raqami noto'g'ri formatda kiritilgan.",
+  "PHONE_NUMBER_BANNED": "Ushbu telefon raqami Telegram tomonidan bloklangan.",
+  "FLOOD": "Urinishlar soni ko'p bo'lganligi sababli, birozdan so'ng qayta urinib ko'ring.",
+  "AUTH_RESTART": "Autentifikatsiya jarayonida xatolik yuz berdi. Iltimos, jarayonni boshidan boshlang.",
+  "SESSION_NOT_FOUND": "Sessiya muddati tugagan. Iltimos, jarayonni boshidan boshlang.",
+  "SESSION_CORRUPTED": "Texnik xatolik yuz berdi. Iltimos, jarayonni boshidan boshlang."
+}

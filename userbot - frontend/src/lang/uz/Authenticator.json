@@ -1,0 +1,17 @@
+{
+  "h1": "Parolingiz",
+  "p": "Ikki bosqichli tekshiruv yoqilgan. Hisobingiz qo'shimcha parol bilan himoyalangan.",
+  "label": "Parolingizni kiriting",
+  "SESSION_NOT_FOUND": "Sessiya muddati tugagan. Iltimos, jarayonni boshidan boshlang.",
+  "SESSION_CORRUPTED": "Texnik xatolik yuz berdi. Iltimos, jarayonni boshidan boshlang.",
+  "PASSWORD_MISSING": "Iltimos, parolingizni kiriting.",
+  "SESSION_EXPIRED": "Avtorizatsiya muddati tugagan. Iltimos, qaytadan kiring.",
+  "SESSION_REVOKED": "Ushbu sessiya bekor qilingan. Iltimos, qaytadan kiring.",
+  "AUTH_KEY_DUPLICATED": "Sessiya bir vaqtning o'zida boshqa qurilmada ishlatildi. Iltimos, qaytadan kiring.",
+  "AUTH_KEY_UNREGISTERED": "Sessiya yaroqsiz. Iltimos, jarayonni boshidan boshlang.",
+  "PASSWORD_HASH_INVALID": "Kiritilgan parol noto'g'ri. Qaytadan urinib ko'ring.",
+  "SRP_ID_INVALID": "Tekshiruv muddati tugadi. Qaytadan urinib ko'ring.",
+  "SRP_PASSWORD_CHANGED": "Parol boshqa qurilmada o'zgartirilgan. Qaytadan urinib ko'ring.",
+  "PASSWORD_TOO_FRESH": "Parol yaqinda o'zgartirilgan. Bir necha daqiqadan so'ng qaytadan urinib ko'ring.",
+  "FLOOD": "Juda ko'p urinish qildingiz. Bir necha daqiqadan so'ng qaytadan urinib ko'ring."
+}
