@@ -5,6 +5,7 @@ import express, {
   type NextFunction,
 } from "express";
 import authRouter from "./router/auth.router.js";
+import dashboardRouter from "./router/dashboard.router.js";
 import cookieParser from "cookie-parser";
 import { handleRateLimit } from "./Middleware/rate.limit.js";
 import { wrap } from "./types/express.js";
@@ -36,6 +37,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/", wrap(handleRateLimit));
 app.use("/auth", authRouter);
+app.use("/dashboard", dashboardRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.message);

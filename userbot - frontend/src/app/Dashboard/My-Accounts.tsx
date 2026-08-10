@@ -2,6 +2,8 @@ import useCloudTelegram from "../../Hook/useCloudTelegram";
 import { useEffect, useState } from "react";
 import Stars from "../../assets/stars.svg";
 import { ChevronRight, CirclePlus, Search, Settings, X } from "lucide-react";
+import useFetch from "../../Hook/useFetch";
+import Avatar from "../../Components/Avatar";
 
 interface UserDataProps {
   id: string;
@@ -9,6 +11,17 @@ interface UserDataProps {
   last_name?: string;
   balance: string;
   photo_url?: string;
+}
+
+interface UsersDataProps {
+  success: boolean;
+  users: {
+    id: number | string;
+    phone: string;
+    status: boolean;
+    firstName: string;
+    lastName: string;
+  }[];
 }
 
 const defaultUserData: UserDataProps = {
@@ -21,6 +34,9 @@ const defaultUserData: UserDataProps = {
 
 function MyAccounts() {
   const [userData, setData] = useState<UserDataProps>(defaultUserData);
+  const { loading, error, data, useData } = useFetch<UsersDataProps>(
+    "/dashboard/my-accounts",
+  );
   const [isSearchInput, setSearchInput] = useState<string>("");
   const [isLoader, setLoader] = useState<boolean>(true);
 
@@ -48,6 +64,10 @@ function MyAccounts() {
       setData(saved as any as UserDataProps);
       setLoader(false);
     })();
+  }, []);
+
+  useEffect(() => {
+    (async () => await useData({ cookie: true }))();
   }, []);
 
   if (isLoader) {
@@ -110,34 +130,53 @@ function MyAccounts() {
 
       <button
         type="button"
-        className={`flex items-center gap-2 bg-input-color hover:bg-input-hover border border-white/5 duration-300 text-blue-400 py-2.5 px-3 text-sm rounded-t-lg cursor-pointer w-full`}
+        className={`flex items-center gap-2 bg-input-color hover:bg-input-hover border border-white/5 duration-300 text-blue-400 py-2.5 px-3 text-sm cursor-pointer w-full ${data.success && data.users.length > 0 ? "rounded-t-lg" : "rounded-lg"} transition-all duration-300`}
         onClick={() => (window.location.href = "/auth/login")}
       >
         <CirclePlus className="size-5.5" />
         Yangi hisob qo'shish
       </button>
 
-      <ul className="grid grid-cols-1 gap-0.5 mt-0.5">
-        <li>
-          <button
-            type="button"
-            className="bg-input-color hover:bg-input-hover transition-all duration-300 border border-white/5 px-3 py-1.5 rounded-xs flex items-center justify-between cursor-pointer w-full"
-          >
-            <div className="flex-center gap-2">
-              <img
-                src={userData.photo_url}
-                alt="Avatar"
-                className="size-9 rounded-full"
-              />
-              <div className="flex flex-col items-start text-sm gap-0.5">
-                <span className="text-white font-medium">SARDOR ALK</span>
-                <span className="text-xs">+998323223322</span>
-              </div>
-            </div>
-            <ChevronRight className="size-5 text-gray-500" />
-          </button>
-        </li>
-      </ul>
+      <div className="h-50 w-full bg-input-color my-1 rounded-sm border border-white/5">
+        <img
+          src="https://cdni.iconscout.com/illustration/premium/thumb/empty-bookmark-illustration-svg-download-png-15032806.png"
+          alt="Empty"
+          className="size-30"
+        />
+      </div>
+
+      {data.success && data?.users?.length > 0 && (
+        <ul className="grid grid-cols-1 gap-0.5 mt-0.5">
+          {data.users.map((item) => {
+            return (
+              <li>
+                <button
+                  type="button"
+                  className="bg-input-color hover:bg-input-hover transition-all duration-300 border border-white/5 px-3 py-1.5 rounded-xs flex items-center justify-between cursor-pointer w-full"
+                >
+                  <div className="flex-center gap-2">
+                    <Avatar
+                      id={item.id}
+                      firstName={item.firstName}
+                      lastName={item.lastName}
+                      size={38}
+                    />
+                    <div className="flex flex-col items-start text-sm gap-0.5">
+                      <span className="text-white font-medium">
+                        {item.status ? item.firstName || item.lastName : "Null"}
+                      </span>
+                      <span className="text-xs">
+                        {item.status ? item.phone : "Null"}
+                      </span>
+                    </div>
+                  </div>
+                  <ChevronRight className="size-5 text-gray-500" />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }

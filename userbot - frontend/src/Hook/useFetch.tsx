@@ -10,25 +10,25 @@ interface useDataProps {
   cookie?: boolean;
 }
 
-type useDataFn = (options: useDataProps) => Promise<RecordType>;
+type useDataFn<T> = (options: useDataProps) => Promise<T | RecordType>;
 
-interface useFetchProps {
+interface useFetchProps<T> {
   error: string;
   loading: boolean;
-  useData: useDataFn;
-  data: Record<string, unknown>;
+  useData: useDataFn<T>;
+  data: T;
 }
 
 const RequestsURL: string = import.meta.env.VITE_BACKEND_URL;
 
-function useFetch(url: string): useFetchProps {
+function useFetch<T = RecordType>(url: string): useFetchProps<T> {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [data, setData] = useState<Record<string, unknown>>({});
+  const [data, setData] = useState<T>({} as T);
 
-  const useData: useDataFn = useCallback(
+  const useData: useDataFn<T> = useCallback(
     async ({ method = "POST", headers = {}, body = {}, cookie = false }) => {
-      setData({});
+      setData({} as T);
       setError("");
       setLoading(true);
 
@@ -60,7 +60,6 @@ function useFetch(url: string): useFetchProps {
         };
         fetchOptions.body = JSON.stringify(body);
       }
-
       try {
         const response = await fetch(`${RequestsURL}${url}`, fetchOptions);
         const text = await response.text();
@@ -78,8 +77,15 @@ function useFetch(url: string): useFetchProps {
           message = err.message;
         }
 
+        if (isTelegram && message === "token-expired") {
+          try {
+            await useCloudTelegram.removeItem("token");
+          } catch (err) {}
+          window.Telegram?.WebApp?.close();
+        }
+
         setError(message);
-        return { success: false };
+        return { success: false, error: message };
       } finally {
         setLoading(false);
       }

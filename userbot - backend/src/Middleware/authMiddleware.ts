@@ -14,6 +14,10 @@ const authMiddleware: ExpressContextPromise = async ({ req, res, next }) => {
     req.user = { uid: decoded.uid };
     next?.();
   } catch (err) {
+    const errorName = (err as Error).name;
+    if (errorName === "TokenExpiredError") {
+      return res.status(401).json({ message: "token-expired" });
+    }
     return res.status(401).json({ message: "no-token" });
   }
 };

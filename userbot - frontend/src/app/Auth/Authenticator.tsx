@@ -18,7 +18,7 @@ function Authenticator() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (sentRef.current) return;
+    if (sentRef.current || loading) return;
 
     const Data = Object.fromEntries(new FormData(e.currentTarget));
 

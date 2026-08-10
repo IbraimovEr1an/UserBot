@@ -31,7 +31,7 @@ export const useTgViewport = () => {
   const [status, setStatus] = useState<TelegramStatusProps | null>(null);
   const [loader, setLoader] = useState<TelegramLoaderProps>("loading");
   const [isFetchStarted, setFetchStarted] = useState<boolean>(false);
-  console.log(error);
+
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
@@ -71,8 +71,8 @@ export const useTgViewport = () => {
           const entr = Keys.map((k) => [k, isFormatData(newData[k])] as const);
           const format = Object.fromEntries(entr);
           await useCloudTelegram.setItems(format);
-          await useCloudTelegram.setItem("token", `${data?.token}`);
         }
+        await useCloudTelegram.setItem("token", `${data?.token}`);
       })();
     }
 
