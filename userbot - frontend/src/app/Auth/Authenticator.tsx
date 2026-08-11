@@ -32,18 +32,19 @@ function Authenticator() {
   };
 
   useEffect(() => {
+    inputRef.current?.focus();
+
     (async () => {
       const saved = await useCloudTelegram.getItems(["login_phone"]);
       if (!saved?.login_phone?.trim()) return Navigate("/auth/login");
     })();
-  }, []);
+  }, [ready]);
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
       if (e.target !== inputRef.current) e.preventDefault();
     };
 
-    inputRef.current?.focus();
     document.addEventListener("mousedown", handleMouseDown);
     return () => document.removeEventListener("mousedown", handleMouseDown);
   }, []);

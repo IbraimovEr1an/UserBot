@@ -4,6 +4,8 @@ import Stars from "../../assets/stars.svg";
 import { ChevronRight, CirclePlus, Search, Settings, X } from "lucide-react";
 import useFetch from "../../Hook/useFetch";
 import Avatar from "../../Components/Avatar";
+import DuckEmpty from "../../assets/DuckEmpty.webp";
+import DuckLoading from "../../assets/DuckLoading.webp";
 
 interface UserDataProps {
   id: string;
@@ -13,15 +15,17 @@ interface UserDataProps {
   photo_url?: string;
 }
 
+interface User {
+  id: number | string;
+  phone: string;
+  status: boolean;
+  firstName: string;
+  lastName: string;
+}
+
 interface UsersDataProps {
   success: boolean;
-  users: {
-    id: number | string;
-    phone: string;
-    status: boolean;
-    firstName: string;
-    lastName: string;
-  }[];
+  users: User[];
 }
 
 const defaultUserData: UserDataProps = {
@@ -39,6 +43,7 @@ function MyAccounts() {
   );
   const [isSearchInput, setSearchInput] = useState<string>("");
   const [isLoader, setLoader] = useState<boolean>(true);
+  const [isDataUsers, setDataUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const isFormat = (v: Record<string, unknown>): boolean => {
@@ -69,6 +74,12 @@ function MyAccounts() {
   useEffect(() => {
     (async () => await useData({ cookie: true }))();
   }, []);
+
+  useEffect(() => {
+    if (data?.success) {
+      setDataUsers(data?.users.filter((a) => a.status));
+    }
+  }, [data]);
 
   if (isLoader) {
     return (
@@ -115,12 +126,14 @@ function MyAccounts() {
           type="text"
           maxLength={50}
           autoComplete="off"
+          value={isSearchInput}
           placeholder="Qidiruv..."
           className="input-style pl-8 pr-8"
           onChange={(e) => setSearchInput(e.target.value)}
         />
         <X
           className={`absolute top-1/2 right-3 -translate-y-1/2 size-5 text-white cursor-pointer ${isSearchInput.trim().length > 0 ? "opacity-100 rotate-180 scale-100" : "opacity-0 rotate-0 scale-0"} transition-all duration-300`}
+          onClick={() => setSearchInput("")}
         />
       </label>
 
@@ -137,22 +150,32 @@ function MyAccounts() {
         Yangi hisob qo'shish
       </button>
 
-      <div className="h-50 w-full bg-input-color my-1 rounded-sm border border-white/5">
-        <img
-          src="https://cdni.iconscout.com/illustration/premium/thumb/empty-bookmark-illustration-svg-download-png-15032806.png"
-          alt="Empty"
-          className="size-30"
-        />
-      </div>
+      {loading && (
+        <div className="mt-10 flex-center flex-col">
+          <img src={DuckLoading} alt="Duck-Loading" className="size-35" />
+          <p className="text-[13px] mt-4 text-gray-500">
+            Ma'lumotlar yuklanmoqda, iltimos kuting...
+          </p>
+        </div>
+      )}
 
-      {data.success && data?.users?.length > 0 && (
+      {data?.success && isDataUsers.length === 0 && (
+        <div className="my-1 flex-center flex-col">
+          <img src={DuckEmpty} alt="Duck-Empty" className="w-75" />
+          <p className="text-[13px] -mt-2 text-gray-500">
+            Hozirda faol hisoblar mavjud emas
+          </p>
+        </div>
+      )}
+
+      {isDataUsers.length > 0 && (
         <ul className="grid grid-cols-1 gap-0.5 mt-0.5">
-          {data.users.map((item) => {
+          {isDataUsers.map((item, index) => {
             return (
               <li>
                 <button
                   type="button"
-                  className="bg-input-color hover:bg-input-hover transition-all duration-300 border border-white/5 px-3 py-1.5 rounded-xs flex items-center justify-between cursor-pointer w-full"
+                  className={`bg-input-color hover:bg-input-hover transition-all duration-300 border border-white/5 px-3 py-1.5 flex items-center justify-between cursor-pointer w-full rounded-xs ${isDataUsers.length - 1 === index ? "rounded-b-lg" : ""}`}
                 >
                   <div className="flex-center gap-2">
                     <Avatar
