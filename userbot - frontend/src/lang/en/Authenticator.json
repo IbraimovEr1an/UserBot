@@ -1,0 +1,17 @@
+{
+  "h1": "Your password",
+  "p": "Two-step verification is enabled. Your account is protected with an additional password.",
+  "label": "Enter your password",
+  "SESSION_NOT_FOUND": "The session has expired. Please start the process over.",
+  "SESSION_CORRUPTED": "A technical error occurred. Please start the process over.",
+  "PASSWORD_MISSING": "Please enter your password.",
+  "SESSION_EXPIRED": "The authorization has expired. Please sign in again.",
+  "SESSION_REVOKED": "This session has been revoked. Please sign in again.",
+  "AUTH_KEY_DUPLICATED": "The session was used on another device at the same time. Please sign in again.",
+  "AUTH_KEY_UNREGISTERED": "The session is invalid. Please start the process over.",
+  "PASSWORD_HASH_INVALID": "The password you entered is incorrect. Please try again.",
+  "SRP_ID_INVALID": "The verification has expired. Please try again.",
+  "SRP_PASSWORD_CHANGED": "The password was changed on another device. Please try again.",
+  "PASSWORD_TOO_FRESH": "The password was changed recently. Please try again in a few minutes.",
+  "FLOOD": "Too many attempts. Please try again in a few minutes."
+}

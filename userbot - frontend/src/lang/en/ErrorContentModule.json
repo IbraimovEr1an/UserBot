@@ -1,0 +1,10 @@
+{
+  "too-many-requests": "You've sent too many requests in a short period. Please try again later.",
+  "server-error": "A technical issue occurred while connecting to the server. Please try again shortly.",
+  "unknown-error": "An unexpected error occurred. Please try again later.",
+  "API_ID_INVALID": "Invalid API ID.",
+  "API_ID_PUBLISHED_FLOOD": "This API ID has been published somewhere and can no longer be used.",
+  "no-auth": "Session not found. Please try again or restart the app.",
+  "DB-ERROR": "A technical issue occurred. Please try again shortly.",
+  "ops": "Oops, something went wrong."
+}

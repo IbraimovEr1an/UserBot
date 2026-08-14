@@ -1,0 +1,9 @@
+{
+  "input": "Qidiruv...",
+  "accounts": "Mening hisoblarim",
+  "new-account": "Yangi hisob qo'shish",
+  "loading": "Ma'lumotlar yuklanmoqda, iltimos kuting...",
+  "empty": "Hozirda faol hisoblar mavjud emas",
+  "error": "Tizimda texnik nosozlik yuz berdi. Iltimos, birozdan so'ng qaytadan urinib ko'ring.",
+  "search": "\"name\" uchun hech qanday natija topilmadi"
+}

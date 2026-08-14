@@ -1,35 +1,35 @@
-import useCloudTelegram from "../../Hook/useCloudTelegram";
-import { Fragment, useEffect, useState } from "react";
+import Setting from "./Settings";
 import Stars from "../../assets/stars.svg";
-import { ChevronRight, CirclePlus, Search, Settings, X } from "lucide-react";
 import useFetch from "../../Hook/useFetch";
 import Avatar from "../../Components/Avatar";
-import DuckEmpty from "../../assets/DuckEmpty.webp";
-import DuckLoading from "../../assets/DuckLoading.webp";
 import DuckError from "../../assets/DuckError.webp";
+import DuckEmpty from "../../assets/DuckEmpty.gif";
+import { useLanguage } from "../../Hook/useLanguage";
 import useErrorStore from "../../Hook/useErrorStore";
-import Setting from "./Settings";
+import SearchEmpty from "../../assets/SearchEmpty.gif";
+import DuckLoading from "../../assets/DuckLoading.webp";
+import useCloudTelegram from "../../Hook/useCloudTelegram";
+import { Fragment, useEffect, useMemo, useState } from "react";
+import { ChevronRight, CirclePlus, Search, Settings, X } from "lucide-react";
+import type { User, UserDataProps, UsersDataProps } from "../../Type/Dashboard";
 
-interface UserDataProps {
-  id: string;
-  first_name: string;
-  last_name?: string;
-  balance: string;
-  photo_url?: string;
-}
+const Message = ({ image, txt }: { image: string; txt: string }) => {
+  return (
+    <div className="mt-10 flex-center flex-col text-[13px] text-center text-gray-500">
+      <img src={image} alt="Duck-Loading" className="size-35" />
+      <p className="mt-4 max-w-4/5 leading-5 wrap-break-word">{txt}</p>
+    </div>
+  );
+};
 
-interface User {
-  id: number | string;
-  phone: string;
-  status: boolean;
-  firstName: string;
-  lastName: string;
-}
+const isFormat = (v: Record<string, unknown>): boolean => {
+  const Values = Object.values(v).filter(Boolean);
+  if (!Values.length) return false;
 
-interface UsersDataProps {
-  success: boolean;
-  users: User[];
-}
+  return Values.every(
+    (item) => typeof item === "string" && item.trim().length > 0,
+  );
+};
 
 const defaultUserData: UserDataProps = {
   id: "0000000000",
@@ -40,34 +40,33 @@ const defaultUserData: UserDataProps = {
 };
 
 function MyAccounts() {
+  const useFetchData = useFetch<UsersDataProps>("/dashboard/my-accounts");
   const [userData, setData] = useState<UserDataProps>(defaultUserData);
-  const { loading, error, data, useData } = useFetch<UsersDataProps>(
-    "/dashboard/my-accounts",
-  );
   const [isSearchInput, setSearchInput] = useState<string>("");
   const showError = useErrorStore((state) => state.showError);
   const [isSettings, setSettings] = useState<boolean>(false);
   const [isDataUsers, setDataUsers] = useState<User[]>([]);
+  const { loading, error, data, useData } = useFetchData;
   const [isLoader, setLoader] = useState<boolean>(true);
+  const { t, ready } = useLanguage("Dashboard");
+
+  const isUserFilter = useMemo(() => {
+    const searchText = isSearchInput.toLowerCase().trim();
+
+    const matchesSearch = (value: string) =>
+      value.toLocaleLowerCase().includes(searchText);
+
+    const isMatchedUser = (user: User) =>
+      matchesSearch(user.phone) ||
+      matchesSearch(user.firstName.trim()) ||
+      matchesSearch(user.lastName.trim());
+
+    return isDataUsers.filter(isMatchedUser);
+  }, [isSearchInput, isDataUsers]);
 
   useEffect(() => {
-    const isFormat = (v: Record<string, unknown>): boolean => {
-      const Values = Object.values(v).filter(Boolean);
-      if (!Values.length) return false;
-
-      return Values.every(
-        (item) => typeof item === "string" && item.trim().length > 0,
-      );
-    };
-
     (async () => {
-      const Keys: string[] = [
-        "id",
-        "first_name",
-        "last_name",
-        "balance",
-        "photo_url",
-      ];
+      const Keys = ["id", "first_name", "last_name", "balance", "photo_url"];
       const saved = await useCloudTelegram.getItems(Keys);
       const isValid = isFormat(saved);
       if (!isValid) return window.Telegram?.WebApp?.close();
@@ -97,7 +96,7 @@ function MyAccounts() {
     }
   }, [data]);
 
-  if (isLoader) {
+  if (isLoader || ready) {
     return (
       <div className="size-full">
         <header className="h-13 w-full loader-animation rounded-sm"></header>
@@ -147,7 +146,7 @@ function MyAccounts() {
             maxLength={50}
             autoComplete="off"
             value={isSearchInput}
-            placeholder="Qidiruv..."
+            placeholder={t("input")}
             className="input-style pl-8 pr-8"
             onChange={(e) => setSearchInput(e.target.value)}
           />
@@ -158,54 +157,44 @@ function MyAccounts() {
         </label>
 
         <h1 className="text-white font-medium text-[17px] mb-2">
-          Mening hisoblarim
+          {t("accounts")}
         </h1>
 
         <button
           type="button"
-          className={`flex items-center gap-2 bg-input-color hover:bg-input-hover border border-white/5 duration-300 text-blue-400 py-2.5 px-3 text-sm cursor-pointer w-full ${data.success && data.users.length > 0 ? "rounded-t-lg" : "rounded-lg"} transition-all duration-300`}
+          className={`flex items-center gap-2 bg-input-color hover:bg-input-hover border border-white/5 duration-300 text-blue-400 py-2.5 px-3 text-sm cursor-pointer w-full ${data?.success && isUserFilter.length > 0 ? "rounded-t-lg" : "rounded-lg"} transition-all duration-300`}
           onClick={() => (window.location.href = "/auth/login")}
         >
           <CirclePlus className="size-5.5" />
-          Yangi hisob qo'shish
+          {t("new-account")}
         </button>
 
-        {loading && (
-          <div className="mt-10 flex-center flex-col">
-            <img src={DuckLoading} alt="Duck-Loading" className="size-35" />
-            <p className="text-[13px] mt-4 text-gray-500 text-center">
-              Ma'lumotlar yuklanmoqda, iltimos kuting...
-            </p>
-          </div>
+        {loading && <Message txt={t("loading")} image={DuckLoading} />}
+        {error && <Message txt={t("error")} image={DuckError} />}
+
+        {data?.success && (
+          <Fragment>
+            {isDataUsers.length === 0 && (
+              <Message txt={t("empty")} image={DuckEmpty} />
+            )}
+
+            {isDataUsers.length > 0 && isUserFilter.length === 0 && (
+              <Message
+                txt={t("search").replace("name", isSearchInput)}
+                image={SearchEmpty}
+              />
+            )}
+          </Fragment>
         )}
 
-        {data?.success && isDataUsers.length === 0 && (
-          <div className="my-1 flex-center flex-col">
-            <img src={DuckEmpty} alt="Duck-Empty" className="w-75" />
-            <p className="text-[13px] -mt-2 text-gray-500 text-center">
-              Hozirda faol hisoblar mavjud emas
-            </p>
-          </div>
-        )}
-
-        {error && (
-          <div className="mt-10 flex-center flex-col">
-            <img src={DuckError} alt="Duck-Empty" className="w-35" />
-            <p className="text-[13px] mt-4 text-gray-500 text-center">
-              Tizimda texnik nosozlik yuz berdi. Iltimos, birozdan so'ng
-              qaytadan urinib ko'ring.
-            </p>
-          </div>
-        )}
-
-        {isDataUsers.length > 0 && (
+        {isUserFilter.length > 0 && (
           <ul className="grid grid-cols-1 gap-0.5 mt-0.5">
-            {isDataUsers.map((item, index) => {
+            {isUserFilter.map((item, index) => {
               return (
-                <li>
+                <li key={item.id}>
                   <button
                     type="button"
-                    className={`bg-input-color hover:bg-input-hover transition-all duration-300 border border-white/5 px-3 py-1.5 flex items-center justify-between cursor-pointer w-full rounded-xs ${isDataUsers.length - 1 === index ? "rounded-b-lg" : ""}`}
+                    className={`bg-input-color hover:bg-input-hover transition-all duration-300 border border-white/5 px-3 py-1.5 flex items-center justify-between cursor-pointer w-full rounded-xs ${isUserFilter.length - 1 === index ? "rounded-b-lg" : ""}`}
                   >
                     <div className="flex-center gap-2">
                       <Avatar
@@ -216,13 +205,9 @@ function MyAccounts() {
                       />
                       <div className="flex flex-col items-start text-sm gap-0.5">
                         <span className="text-white font-medium">
-                          {item.status
-                            ? item.firstName || item.lastName
-                            : "Null"}
+                          {item.firstName || item.lastName}
                         </span>
-                        <span className="text-xs">
-                          {item.status ? item.phone : "Null"}
-                        </span>
+                        <span className="text-xs">{item.phone}</span>
                       </div>
                     </div>
                     <ChevronRight className="size-5 text-gray-500" />

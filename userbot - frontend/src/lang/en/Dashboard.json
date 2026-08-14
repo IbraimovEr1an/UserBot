@@ -1,0 +1,9 @@
+{
+  "input": "Search...",
+  "accounts": "My accounts",
+  "new-account": "Add new account",
+  "loading": "Loading data, please wait...",
+  "empty": "No active accounts available",
+  "error": "A technical issue occurred. Please try again shortly.",
+  "search": "No results found for \"name\""
+}

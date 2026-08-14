@@ -1,0 +1,14 @@
+{
+  "h1": "Check your Telegram messages",
+  "p": "A code has been sent to the Telegram app on the device for phone.",
+  "PHONE_CODE_INVALID": "The verification code you entered is incorrect. Please check and enter it again.",
+  "PHONE_CODE_EXPIRED": "The verification code has expired. Please request a new one.",
+  "PHONE_CODE_EMPTY": "The verification code was not entered. Please enter the full code.",
+  "PASSWORD_HASH_INVALID": "The password you entered is incorrect. Please try again",
+  "PHONE_NUMBER_INVALID": "The phone number was entered in an invalid format.",
+  "PHONE_NUMBER_BANNED": "This phone number has been banned by Telegram.",
+  "FLOOD": "Too many attempts have been made, please try again shortly.",
+  "AUTH_RESTART": "An error occurred during authentication. Please start the process over.",
+  "SESSION_NOT_FOUND": "The session has expired. Please start the process over.",
+  "SESSION_CORRUPTED": "A technical error occurred. Please start the process over."
+}

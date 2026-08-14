@@ -27,7 +27,7 @@ function ErrorContentModule() {
             <div className="flex items-center gap-1.5">
               <AlertTriangleIcon className="size-4 text-white shrink-0" />
               <h1 className="text-sm text-white font-medium line-clamp-1">
-                Voy, xatolik yuz berdi.
+                {t("ops")}
               </h1>
             </div>
             <p className="text-xs line-clamp-2 pl-6">{t(item.txt)}</p>

@@ -1,0 +1,16 @@
+{
+  "h1": "Your phone number",
+  "p": "Please confirm your country code and enter your phone number",
+  "nx": "Next",
+  "wait": "Please wait a moment...",
+  "qrcode": "Quick login with QR code",
+  "country": "Select country",
+  "search": "Search",
+  "close": "Close",
+  "country_empty": "No country found",
+  "PHONE_NUMBER_INVALID": "The phone number format is invalid or does not exist.",
+  "PHONE_NUMBER_BANNED": "This number has been banned by Telegram",
+  "PHONE_NUMBER_FLOOD": "Too many attempts have been made for this number",
+  "PHONE_PASSWORD_FLOOD": "The password has been entered incorrectly too many times",
+  "FLOOD": "This method has been called too many times with the given input parameters, please wait a while"
+}
