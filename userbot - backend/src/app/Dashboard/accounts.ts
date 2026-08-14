@@ -7,7 +7,7 @@ const Accounts: ExpressContextPromise = async ({ req, res }) => {
   if (!uid) return res.status(400).json({ message: "no-auth" });
 
   const results = await ClientManager.getAllUserProfiles(uid);
-  console.log(results);
+
   return res.status(200).json({ success: true, users: results });
 };
 

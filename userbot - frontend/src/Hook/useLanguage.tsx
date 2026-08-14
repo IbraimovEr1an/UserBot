@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import useCloudTelegram from "./useCloudTelegram";
 
 type Lang = "uz" | "en" | "ru";
 type Translations = Record<string, string>;
@@ -55,8 +56,27 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     [language],
   );
 
-  const setLang = useCallback((lang: Lang) => {
-    setLanguage(lang);
+  useEffect(() => {
+    (async () => {
+      const languageCode = await useCloudTelegram.getItems(["language_code"]);
+
+      if (!languageCode.language_code?.trim()) {
+        await useCloudTelegram.setItem("language_code", "uz");
+        setLanguage("uz");
+        return;
+      }
+
+      setLanguage(languageCode.language_code as Lang);
+    })();
+  }, []);
+
+  const setLang = useCallback(async (lang: Lang) => {
+    try {
+      setLanguage(lang);
+      await useCloudTelegram.setItem("language_code", lang);
+    } catch (err) {
+      console.error("Language error - ", err);
+    }
   }, []);
 
   return (
@@ -76,26 +96,26 @@ const useTransition = () => {
 
 export const useLanguage = (n: string) => {
   const { lang, nameSpace, setLang } = useTransition();
-  const [isTransition, setTransition] = useState<Record<string, string>>({});
+  const [translations, setTranslations] = useState<Record<string, string>>({});
   const [ready, setReady] = useState<boolean>(true);
 
   useEffect(() => {
-    let status = false;
+    let cancelled = false;
     setReady(true);
 
     nameSpace(n).then((d) => {
-      if (!status) {
-        setTransition(d);
+      if (!cancelled) {
+        setTranslations(d);
         setReady(false);
       }
     });
 
     return () => {
-      status = true;
+      cancelled = true;
     };
   }, [lang, n, nameSpace]);
 
-  const t = (key: string) => isTransition[key] ?? key;
+  const t = (key: string) => translations[key] ?? key;
 
   return { t, ready, lang, setLang };
 };
