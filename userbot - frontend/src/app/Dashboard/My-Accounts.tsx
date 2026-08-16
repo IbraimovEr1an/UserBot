@@ -1,4 +1,4 @@
-import Setting from "./Settings";
+import Setting from "./Components/Settings";
 import Stars from "../../assets/stars.svg";
 import useFetch from "../../Hook/useFetch";
 import Avatar from "../../Components/Avatar";
@@ -12,6 +12,7 @@ import useCloudTelegram from "../../Hook/useCloudTelegram";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { ChevronRight, CirclePlus, Search, Settings, X } from "lucide-react";
 import type { User, UserDataProps, UsersDataProps } from "../../Type/Dashboard";
+import { useNavigate } from "react-router-dom";
 
 const Message = ({ image, txt }: { image: string; txt: string }) => {
   return (
@@ -49,6 +50,7 @@ function MyAccounts() {
   const { loading, error, data, useData } = useFetchData;
   const [isLoader, setLoader] = useState<boolean>(true);
   const { t, ready } = useLanguage("Dashboard");
+  const Navigate = useNavigate();
 
   const isUserFilter = useMemo(() => {
     const searchText = isSearchInput.toLowerCase().trim();
@@ -110,32 +112,41 @@ function MyAccounts() {
   return (
     <Fragment>
       <div className="size-full">
-        <header className="flex items-center justify-between bg-input-color px-3 py-2 rounded-sm border border-white/5">
-          <div className="flex items-center gap-2">
-            <img
-              src={userData.photo_url}
-              alt="User"
-              className="rounded-full size-11"
-            />
+        <header className="bg-input-color px-3 py-2 rounded-sm border border-white/5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <img
+                src={userData.photo_url}
+                alt="User"
+                className="rounded-full size-11"
+              />
 
-            <div className="text-white text-[16px] font-medium">
-              <h1>{userData.first_name}</h1>
-              <div className="flex items-center -mt-1.5">
-                <img
-                  src={Stars}
-                  alt="Stars"
-                  className="size-7.5 -ml-1.25 -mr-0.5"
-                />
-                <p>{userData.balance}</p>
+              <div className="text-white text-[16px] font-medium">
+                <h1>{userData.first_name}</h1>
+                <div className="flex items-center -mt-1.5">
+                  <img
+                    src={Stars}
+                    alt="Stars"
+                    className="size-7.5 -ml-1.25 -mr-0.5"
+                  />
+                  <p>{userData.balance}</p>
+                </div>
               </div>
             </div>
+
+            <button
+              className="bg-[#2C3743] hover:bg-[#374250] border border-[#3E4A58] p-2.5 rounded-full text-[#E8EBEE] cursor-pointer transition-all duration-300"
+              onClick={() => setSettings(true)}
+            >
+              <Settings className="size-4.5" />
+            </button>
           </div>
 
           <button
-            className="bg-[#2C3743] hover:bg-[#374250] border border-[#3E4A58] p-2.5 rounded-full text-[#E8EBEE] cursor-pointer transition-all duration-300"
-            onClick={() => setSettings(true)}
+            type="button"
+            className="bg-button-color text-white w-full text-sm py-2 rounded-sm mt-2 cursor-pointer"
           >
-            <Settings className="size-4.5" />
+            {t("pay")}
           </button>
         </header>
 
@@ -163,7 +174,7 @@ function MyAccounts() {
         <button
           type="button"
           className={`flex items-center gap-2 bg-input-color hover:bg-input-hover border border-white/5 duration-300 text-blue-400 py-2.5 px-3 text-sm cursor-pointer w-full ${data?.success && isUserFilter.length > 0 ? "rounded-t-lg" : "rounded-lg"} transition-all duration-300`}
-          onClick={() => (window.location.href = "/auth/login")}
+          onClick={() => Navigate("/auth/login")}
         >
           <CirclePlus className="size-5.5" />
           {t("new-account")}
@@ -194,6 +205,11 @@ function MyAccounts() {
                 <li key={item.id}>
                   <button
                     type="button"
+                    onClick={() =>
+                      Navigate(
+                        `/dashboard/account/${item.phone}`,
+                      )
+                    }
                     className={`bg-input-color hover:bg-input-hover transition-all duration-300 border border-white/5 px-3 py-1.5 flex items-center justify-between cursor-pointer w-full rounded-xs ${isUserFilter.length - 1 === index ? "rounded-b-lg" : ""}`}
                   >
                     <div className="flex-center gap-2">

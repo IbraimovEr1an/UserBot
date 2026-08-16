@@ -5,5 +5,6 @@
   "loading": "Loading data, please wait...",
   "empty": "No active accounts available",
   "error": "A technical issue occurred. Please try again shortly.",
-  "search": "No results found for \"name\""
+  "search": "No results found for \"name\"",
+  "pay": "Account replenishment"
 }

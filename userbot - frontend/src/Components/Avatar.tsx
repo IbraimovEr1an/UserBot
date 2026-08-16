@@ -3,6 +3,7 @@ interface UserAvatarProps {
   firstName: string;
   lastName: string;
   size?: number;
+  txtSize?: number;
 }
 
 const AVATAR_COLORS = [
@@ -39,7 +40,13 @@ const getName = (firstName: string, lastName: string): string => {
   return Name.toUpperCase();
 };
 
-function Avatar({ id, firstName, lastName, size = 48 }: UserAvatarProps) {
+function Avatar({
+  id,
+  firstName,
+  lastName,
+  size = 48,
+  txtSize = size,
+}: UserAvatarProps) {
   const [colorStart, colorEnd] = getColor(id);
   const Name = getName(firstName, lastName);
   const gradID = `grad-${id}`;
@@ -59,7 +66,7 @@ function Avatar({ id, firstName, lastName, size = 48 }: UserAvatarProps) {
         textAnchor="middle"
         dominantBaseline="central"
         fill="white"
-        fontSize={size * 0.55}
+        fontSize={size !== txtSize ? txtSize : size * 0.55}
         fontWeight="500"
         fontFamily="system-ui, sans-serif"
       >

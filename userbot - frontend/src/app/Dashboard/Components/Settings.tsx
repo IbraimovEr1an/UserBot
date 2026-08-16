@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useLanguage } from "../../Hook/useLanguage";
+import { useLanguage } from "../../../Hook/useLanguage";
 import { X } from "lucide-react";
 
 type Lang = "uz" | "ru" | "en";

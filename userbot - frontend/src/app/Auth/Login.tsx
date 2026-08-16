@@ -16,7 +16,7 @@ const DefaultCountry =
 
 function Login() {
   const Navigate = useNavigate();
-  BackButton({ link: "/my-accounts" });
+  BackButton({ link: "/dashboard" });
   const { ready, t, lang } = useLanguage("Login");
   const [isNumber, setNumber] = useState<string>("");
   const showError = useErrorStore((state) => state.showError);

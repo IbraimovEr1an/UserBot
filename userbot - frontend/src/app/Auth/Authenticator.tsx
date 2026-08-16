@@ -83,7 +83,7 @@ function Authenticator() {
   useEffect(() => {
     if (data?.success) {
       (async () => await useCloudTelegram.removeItem("login_phone"))();
-      Navigate("/my-accounts");
+      Navigate("/dashboard");
     }
   }, [data]);
 

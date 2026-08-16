@@ -5,5 +5,6 @@
   "loading": "Ma'lumotlar yuklanmoqda, iltimos kuting...",
   "empty": "Hozirda faol hisoblar mavjud emas",
   "error": "Tizimda texnik nosozlik yuz berdi. Iltimos, birozdan so'ng qaytadan urinib ko'ring.",
-  "search": "\"name\" uchun hech qanday natija topilmadi"
+  "search": "\"name\" uchun hech qanday natija topilmadi",
+  "pay": "Hisobni to'ldirish"
 }

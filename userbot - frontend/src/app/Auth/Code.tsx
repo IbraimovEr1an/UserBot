@@ -86,7 +86,7 @@ function Code() {
   useEffect(() => {
     if (!data?.success) return;
     (async () => await useCloudTelegram.removeItem("login_phone"))();
-    Navigate("/my-accounts");
+    Navigate("/dashboard");
   }, [data]);
 
   BackButton({

@@ -148,6 +148,7 @@ class ClientManager {
     return results;
   }
 
+  // UID || Barcha userlar royxati batafsil
   async getAllUserProfiles(uid: number) {
     const clients = await this.getAllClients(uid);
 
@@ -178,6 +179,25 @@ class ClientManager {
     return profiles.map((item) =>
       item.status === "fulfilled" ? item.value : { status: false },
     );
+  }
+
+  async getUserProfile(uid: number, phone: string) {
+    const client = await this.getClient(uid, phone);
+
+    try {
+      const Me = await client.getMe();
+
+      return {
+        id: Me.id.toString(),
+        phone,
+        firstName: Me.firstName ?? "",
+        lastName: Me.lastName ?? "",
+        status: true,
+      };
+    } catch (err) {
+      if (this.isSession(err)) await this.handleDeleteSession(uid, phone);
+      return { phone, status: false };
+    }
   }
 }
 
