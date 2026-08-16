@@ -54,3 +54,7 @@
 @utility input-style {
   @apply bg-input-color w-full border border-white/5 py-1.75 px-3 rounded-sm text-sm text-white;
 }
+
+@utility box {
+  @apply bg-input-color hover:bg-input-hover focus-visible:bg-input-hover border border-white/5 rounded-xs py-1.5 px-3 transition-all duration-300;
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ai_assistant",
+    "title": "Sun'iy intellekt",
+    "decoration": "AI orqali suhbatni boshqarish"
+  },
+  {
+    "id": "group_create",
+    "title": "Guruh yaratish",
+    "decoration": "Avtomatik guruh va kanal yaratish"
+  },
+  {
+    "id": "auto_reply",
+    "title": "Avto-javob",
+    "decoration": "Xabarlarga avtomatik javob berish"
+  },
+  {
+    "id": "online_status",
+    "title": "Onlayn holat",
+    "decoration": "Har doim onlayn ko'rinish"
+  },
+  {
+    "id": "mark_as_read",
+    "title": "Xabarlarni o'qilgan deb belgilash",
+    "decoration": "Kirgan xabarlarni avtomatik o'qilgan qilish"
+  },
+  {
+    "id": "spam_protection",
+    "title": "Spam himoyasi",
+    "decoration": "Nomaʼlum foydalanuvchilardan himoya"
+  },
+  {
+    "id": "auto_forward",
+    "title": "Auto-forward",
+    "decoration": "Xabarlarni boshqa chatga avtomatik yo'naltirish"
+  },
+  {
+    "id": "voice_to_text",
+    "title": "Ovozli xabarlarni matnga o'girish",
+    "decoration": "Voice-to-text avtomatik transkripsiya"
+  }
+]
